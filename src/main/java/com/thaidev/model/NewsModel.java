@@ -8,6 +8,7 @@ public class NewsModel extends AbstractModel {
 	private String content;
 	private Long categoryId;
 	
+	
 	public String getTitle() {
 		return title;
 	}

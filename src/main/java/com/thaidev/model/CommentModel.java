@@ -1,6 +1,6 @@
 package com.thaidev.model;
 
-public class CommentModel extends AbstractModel {
+public class CommentModel extends AbstractModel<CommentModel> {
 
 	private String content;
 	private Long userId;

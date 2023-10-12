@@ -5,6 +5,7 @@ import java.util.List;
 import com.thaidev.dao.INewsDAO;
 import com.thaidev.mapper.NewsMapper;
 import com.thaidev.model.NewsModel;
+import com.thaidev.paging.Pageable;
 
 public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 
@@ -48,5 +49,25 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 	public void delete(long id) {
 		String sql = "delete from news where id = ?";
 		update(sql, id);
+	}
+
+	@Override
+	public List<NewsModel> findAll(Pageable pageable) {
+		StringBuilder sql = new StringBuilder("select * from news ");
+		if(pageable.getSorter() != null) {
+			sql.append("order by " + pageable.getSorter().getSortName() + " " + pageable.getSorter().getSortBy());
+		}
+		if(pageable.getOffset() != null && pageable.getLimit() != null) {
+			sql.append("limit " + pageable.getOffset() + " " + pageable.getLimit());
+		}
+		return query(sql.toString(), new NewsMapper());
+	
+		
+	}
+
+	@Override
+	public int getTotalItem() {
+		String sql = "select count(*) from news";
+		return count(sql);
 	}
 }

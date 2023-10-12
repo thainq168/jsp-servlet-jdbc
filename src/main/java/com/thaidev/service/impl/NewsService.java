@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.thaidev.dao.INewsDAO;
 import com.thaidev.model.NewsModel;
+import com.thaidev.paging.Pageable;
 import com.thaidev.service.INewsService;
 
 public class NewsService implements INewsService{
@@ -44,6 +45,16 @@ public class NewsService implements INewsService{
 			// delete comment first (foreign key)
 			newsDao.delete(id);
 		}
+	}
+
+	@Override
+	public List<NewsModel> findAll(Pageable pageable) {
+		return newsDao.findAll(pageable);
+	}
+
+	@Override
+	public int getTotalItem() {
+		return newsDao.getTotalItem();
 	}
 	
 

@@ -8,18 +8,21 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.thaidev.dao.IGenericDAO;
 import com.thaidev.mapper.IRowMapper;
 
 public class AbstractDAO<T> implements IGenericDAO<T> {
 
+	ResourceBundle bundle = ResourceBundle.getBundle("db");
+	
 	public Connection getConnection() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/jspservletjdbc";
-			String user = "root";
-			String password = "123456";
+			Class.forName(bundle.getString("driverName"));
+			String url = bundle.getString("url");
+			String user = bundle.getString("user");
+			String password = bundle.getString("password");
 			return DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException | SQLException e) {
 			return null;
